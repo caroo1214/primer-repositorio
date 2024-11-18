@@ -1,4 +1,5 @@
-import { Cliente } from "./cliente";
+import { idAleatoria } from "./redVeterinaria";
+
 
   /*Pacientes (mascotas): nombre, especie (si no es perro o gato, deberá registrarse como exótica), 
   id del dueño, las veterinarias deben contar con la opción de alta, baja y modificación de los mismos. */
@@ -8,14 +9,16 @@ import { Cliente } from "./cliente";
   export class Paciente{
     private nombre: string;
     private especie: string;
+    public id:number;
     private idDueño: number; 
 
     //constructor
 
-    public constructor(nombre: string, especie: string, idDueño: number){
+    public constructor(nombre: string, especie: string,id:number, idDueño: number){
         this.nombre = nombre;
         this.especie = especie;
-        this.idDueño = idDueño;
+        this.id= idAleatoria();
+        this.idDueño = idAleatoria();
     }
 
     //getters
@@ -29,7 +32,11 @@ import { Cliente } from "./cliente";
 
    public getIdDueño():number{
         return this.idDueño
-    }       
+    }
+    
+    public getId():number{
+      return this.idDueño
+  }     
     
 
     //setters
@@ -53,6 +60,24 @@ import { Cliente } from "./cliente";
         }
         return ok
     }
+
+    public datosAnimal(): string {
+        return `paciente: Nombre: ${this.nombre}, Especie: ${this.especie},id: ${this.id}, Dueño: ${this.idDueño}`;
+      }
+
+      //modificar paciente
+    
+      public modificarPaciente(  nombreNuevo: string, especieNuevo: string): void {
+        let pacienteAModificar: Paciente| undefined;//me lo agrega
+       
+        if (pacienteAModificar) {
+            pacienteAModificar.nombre = nombreNuevo;
+            pacienteAModificar.especie = especieNuevo;
+          console.log(`Paciente modificado: ${pacienteAModificar.datosAnimal()}`);
+        } else {
+          console.log(" El paciente no está registrado");
+        }
+      }
 }
 /*
 public getCostoTotal(): number {
